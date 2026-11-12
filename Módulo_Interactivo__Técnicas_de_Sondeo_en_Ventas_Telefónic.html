@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="riso">
+  <title>Manual Vivo de Sondeo Telefónico — Konecta &amp; Mundo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f7f3ea;
+      --surface-container-low: #ffffff;
+      --surface-container: #efe8d8;
+      --surface-container-high: #fff8b3;
+
+      /* Ink */
+      --on-surface: #1d2a5a;
+      --on-surface-variant: #3d4775;
+
+      /* Rules */
+      --outline: #1d2a5a;
+      --outline-variant: #c3c6d9;
+
+      /* Accents */
+      --primary: #006aa8;
+      --on-primary: #ffffff;
+      --primary-container: #ffe800;
+      --on-primary-container: #1d2a5a;
+      --secondary: #ff52b4;
+      --tertiary: #d00074;
+      --error: #c0262d;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #0078bf;
+      --data-2: #d00074;
+      --data-3: #1d2a5a;
+      --data-4: #d9531e;
+      --data-context: #b4b8cc;
+
+      /* Fonts */
+      --font-headline: 'Archivo', sans-serif;
+      --font-body: 'Work Sans', sans-serif;
+      --font-label: 'Space Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.5rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --misregister: 3px 2px 0 rgb(255 82 180 / 0.85);
+      --ink-border: 2px solid var(--outline);
+      --offset-pink: 5px 5px 0 var(--secondary);
+      --offset-blue: 5px 5px 0 var(--primary);
+      --offset-sm: 3px 3px 0 var(--primary);
+      --offset-sm-pink: 3px 3px 0 var(--secondary);
+      --halftone: radial-gradient(rgb(29 42 90 / 0.07) 1px, transparent 1.2px);
+      --halftone-size: 6px 6px;
+
+      /* Shared tokens */
+      --positive: #0d6e4c;
+      --positive-bg: #e2f5ec;
+      --warning: #8f4f00;
+      --warning-bg: #fff3d6;
+      --error-bg: #fdeaea;
+      --focus: var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.5rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+    }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      background-image: var(--halftone);
+      background-size: var(--halftone-size);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: visible;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: var(--font-headline);
+    }
+
+    p {
+      margin: 0;
+      max-width: 65ch;
+    }
+
+    .misregister {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: var(--primary);
+      text-shadow: var(--misregister);
+    }
+
+    .display-title {
+      font-size: var(--display-size);
+    }
+
+    .section-title {
+      font-size: var(--headline-size);
+      margin-top: var(--space-sm);
+    }
+
+    .subhead {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--subhead-size);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+    }
+
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      line-height: 1.2;
+    }
+
+    .stamp-alt {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: var(--ink-border);
+    }
+
+    .stamp-magenta {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+    }
+
+    .flood-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 0 var(--space-xs);
+      font-weight: 600;
+    }
+
+    /* Ink Blocks */
+    .ink-block {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-pink);
+      padding: var(--space-lg);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .ink-block-blue {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-blue);
+      padding: var(--space-lg);
+    }
+
+    .ink-block-yellow {
+      background: var(--surface-container-high);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-blue);
+      padding: var(--space-lg);
+    }
+
+    .recessed-panel {
+      background: var(--surface-container);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      border: var(--ink-border);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: var(--on-surface);
+      box-shadow: var(--offset-sm);
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+    .btn-primary:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 0 0 0 var(--primary);
+    }
+
+    .btn-secondary {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: var(--offset-sm);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+    .btn-secondary:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 0 0 0 var(--primary);
+    }
+
+    .btn-outline {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: var(--offset-sm-pink);
+    }
+    .btn-outline:hover:not(:disabled) {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--secondary);
+    }
+    .btn-outline:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 0 0 0 var(--secondary);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Masthead & Brand Lockups */
+    .masthead {
+      display: grid;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      border-bottom: 2px solid var(--outline);
+    }
+
+    .brand-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    .brand-lockups {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-md);
+      box-shadow: var(--offset-sm-pink);
+      min-height: 44px;
+    }
+
+    .brand-pill.brand-mundo {
+      box-shadow: var(--offset-sm);
+    }
+
+    .brand-divider {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--tertiary);
+    }
+
+    .progress-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .progress-meter {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-md);
+      min-height: 44px;
+    }
+
+    .progress-track {
+      width: 110px;
+      height: 10px;
+      background: var(--surface-container);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: end;
+    }
+
+    .hero-lede {
+      margin-top: var(--space-md);
+      font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+      color: var(--on-surface);
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .kpi-tile {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-pink);
+      padding: var(--space-md);
+    }
+
+    .kpi-tile:nth-child(even) {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-blue);
+    }
+
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 1.8rem + 1.5vw, 3rem);
+      line-height: 1;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+      margin-block: var(--space-xs);
+    }
+
+    .kpi-note {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--tertiary);
+      font-weight: 700;
+    }
+
+    .kpi-tile:nth-child(even) .kpi-note {
+      color: var(--on-surface);
+    }
+
+    /* Section Structure */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+      border-bottom: 2px solid var(--outline);
+      padding-bottom: var(--space-md);
+    }
+
+    .section-intro {
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+
+    /* Section 1: 7 Probing Techniques */
+    .sondeo-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .sondeo-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .sondeo-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      text-align: left;
+      width: 100%;
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--offset-sm-pink);
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .sondeo-item:nth-child(even) {
+      box-shadow: var(--offset-sm);
+    }
+
+    .sondeo-item:hover {
+      transform: translate(-1px, -1px);
+    }
+
+    .sondeo-item.is-selected {
+      background: var(--surface-container-high);
+      box-shadow: var(--offset-blue);
+    }
+
+    .sondeo-num {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+      min-width: 2.2rem;
+    }
+
+    .sondeo-item-title {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .sondeo-item-sub {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .sondeo-status-chip {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--rounded-full);
+      border: 1.5px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      white-space: nowrap;
+    }
+
+    .sondeo-status-chip.is-done {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .sondeo-detail {
+      position: sticky;
+      top: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .quote-box {
+      background: var(--surface-container-high);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .dialogue-sim {
+      display: grid;
+      gap: var(--space-sm);
+      border-top: 1px solid var(--outline-variant);
+      padding-top: var(--space-md);
+    }
+
+    .bubble {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline);
+      font-size: 0.95rem;
+    }
+
+    .bubble-advisor {
+      background: var(--surface-container-low);
+      border-left: 5px solid var(--primary);
+    }
+
+    .bubble-client {
+      background: var(--surface-container);
+      border-left: 5px solid var(--tertiary);
+    }
+
+    .bubble-role {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .bubble-client .bubble-role {
+      color: var(--tertiary);
+    }
+
+    /* Overprint Chart Block */
+    .chart-block {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .chart-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--outline);
+      display: inline-block;
+    }
+    .swatch-blue { background: var(--data-1); }
+    .swatch-magenta { background: var(--data-2); }
+
+    .overprint-svg {
+      width: 100%;
+      height: auto;
+      min-height: 220px;
+      display: block;
+    }
+
+    .overprint-mark {
+      mix-blend-mode: multiply;
+    }
+
+    /* Section 2: Call Simulator */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .sim-console {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .sim-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: 2px solid var(--outline);
+      padding-bottom: var(--space-sm);
+    }
+
+    .sim-transcript {
+      display: grid;
+      gap: var(--space-sm);
+      max-height: 360px;
+      overflow-y: auto;
+      padding: var(--space-sm);
+      background: var(--surface-container);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded);
+    }
+
+    .sim-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .sim-option-btn {
+      width: 100%;
+      text-align: left;
+      display: grid;
+      gap: 4px;
+      padding: var(--space-md);
+      min-height: 44px;
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      box-shadow: var(--offset-sm-pink);
+      cursor: pointer;
+      color: var(--on-surface);
+      font-size: 0.98rem;
+      line-height: 1.45;
+      transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .sim-option-btn:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      transform: translate(-1px, -1px);
+    }
+
+    .sim-option-btn:disabled {
+      cursor: default;
+      opacity: 0.85;
+    }
+
+    .sim-option-btn.is-correct {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+      box-shadow: 3px 3px 0 var(--positive);
+    }
+
+    .sim-option-btn.is-wrong {
+      background: var(--error-bg);
+      border-color: var(--error);
+      box-shadow: 3px 3px 0 var(--error);
+    }
+
+    .sim-feedback {
+      padding: var(--space-md);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .sim-feedback.is-visible {
+      display: block;
+    }
+
+    .sim-feedback.is-good {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+    }
+
+    .sim-feedback.is-warn {
+      background: var(--warning-bg);
+      border-color: var(--warning);
+    }
+
+    .sim-feedback.is-bad {
+      background: var(--error-bg);
+      border-color: var(--error);
+    }
+
+    .sim-controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* Qualification Live Sheet */
+    .qual-sheet {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .qual-list {
+      display: grid;
+      gap: var(--space-xs);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .qual-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--outline-variant);
+      font-size: 0.92rem;
+    }
+
+    .qual-key {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .qual-val {
+      font-weight: 700;
+      text-align: right;
+      color: var(--on-surface);
+    }
+
+    .qual-val.is-captured {
+      color: var(--primary);
+    }
+
+    .qual-rec {
+      margin-top: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--surface-container-high);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      font-size: 0.92rem;
+    }
+
+    /* Section 3: Quick Qualification Matrix */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .filter-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: var(--ink-border);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .filter-chip:hover {
+      background: var(--surface-container);
+    }
+
+    .filter-chip.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .matrix-wrap {
+      overflow-x: auto;
+    }
+
+    .riso-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .riso-table thead th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: 2px solid var(--outline);
+      vertical-align: bottom;
+    }
+
+    .riso-table tbody td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+      font-size: 0.96rem;
+    }
+
+    .riso-table tbody tr {
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .riso-table tbody tr.is-highlighted {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .matrix-goal-badge {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .matrix-question-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-top: var(--space-xs);
+      padding: 0.35rem 0.7rem;
+      min-height: 36px;
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      color: var(--primary);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .matrix-question-btn:hover {
+      background: var(--surface-container);
+    }
+
+    .matrix-callout {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: var(--surface-container);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    /* Section 4: Best Practices Lab & Quick Quiz */
+    .practices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .practice-card {
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+
+    .script-compare {
+      padding: var(--space-md);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      font-size: 0.94rem;
+    }
+
+    .script-compare.is-improved {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+    }
+
+    .quiz-grid {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .quiz-question {
+      display: grid;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    .quiz-question:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .quiz-choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+
+    .quiz-choice {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded);
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-choice:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+
+    .quiz-choice.is-right {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+      font-weight: 700;
+    }
+
+    .quiz-choice.is-wrong {
+      background: var(--error-bg);
+      border-color: var(--error);
+    }
+
+    .quiz-explain {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      min-height: 1.4em;
+    }
+
+    /* Footer */
+    .source-footer {
+      border-top: 2px solid var(--outline);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    .export-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .inline-note {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Entrance reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .sondeo-workspace,
+      .sim-grid {
+        grid-template-columns: 1fr;
+      }
+      .sondeo-detail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .hero-kpis {
+        grid-template-columns: 1fr;
+      }
+      .sondeo-item {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+      .sondeo-status-chip {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- MASTHEAD & HERO -->
+    <header class="masthead">
+      <div class="brand-bar">
+        <div class="brand-lockups" aria-label="Equipos de formación Konecta y Mundo">
+          <!-- Vector Brand Lockup: Konecta -->
+          <div class="brand-pill" title="Konecta">
+            <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect x="2" y="2" width="24" height="24" rx="5" fill="var(--primary)"></rect>
+              <path d="M9 7V21M9 14L18 7M12.5 11.5L19 21" stroke="var(--on-primary)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <svg width="86" height="22" viewBox="0 0 86 22" aria-label="Konecta">
+              <text x="0" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="18" letter-spacing="-0.03em" fill="var(--on-surface)">konecta</text>
+            </svg>
+          </div>
+
+          <span class="brand-divider" aria-hidden="true">×</span>
+
+          <!-- Vector Brand Lockup: Mundo -->
+          <div class="brand-pill brand-mundo" title="Mundo">
+            <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <circle cx="14" cy="14" r="11" fill="var(--primary-container)" stroke="var(--on-surface)" stroke-width="2"></circle>
+              <ellipse cx="14" cy="14" rx="5.5" ry="11" stroke="var(--primary)" stroke-width="2"></ellipse>
+              <path d="M4 14H24" stroke="var(--tertiary)" stroke-width="2"></path>
+            </svg>
+            <svg width="78" height="22" viewBox="0 0 78 22" aria-label="Mundo">
+              <text x="0" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="18" letter-spacing="0.02em" fill="var(--primary)">MUNDO</text>
+            </svg>
+          </div>
+
+          <span class="stamp">Edición de Entrenamiento · Telefonía Móvil</span>
+        </div>
+
+        <div class="progress-strip">
+          <div class="progress-meter" aria-live="polite">
+            <span class="stamp-magenta" id="progress-status-label">Progreso</span>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progress-bar-fill"></div>
+            </div>
+            <strong id="progress-count" style="font-family: var(--font-label); font-size: var(--label-size);">0/4 Módulos</strong>
+          </div>
+          <button type="button" class="btn btn-outline" id="btn-reset-progress" onclick="handleResetProgress(this)">Reiniciar avance</button>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <h1 class="misregister display-title">El arte del sondeo en llamada</h1>
+          <p class="hero-lede">
+            Un asesor que recita planes a ciegas compite solo por precio. Quien domina el sondeo convierte la conversación en un <span class="flood-highlight">diagnóstico guiado</span>: descubre el dolor real, dimensiona gigas y ahorro, y logra que el cliente pida el cambio a Mundo antes del cierre.
+          </p>
+          <div class="hero-actions">
+            <a href="#sec-tecnicas" class="btn btn-primary">Explorar las 7 técnicas</a>
+            <a href="#sec-simulador" class="btn btn-secondary">Ir al simulador en vivo</a>
+          </div>
+        </div>
+
+        <div class="hero-kpis" aria-label="Resumen del programa">
+          <div class="kpi-tile">
+            <span class="stamp-magenta">Técnicas</span>
+            <div class="kpi-value">07</div>
+            <div class="kpi-note">De apertura a pre-cierre</div>
+          </div>
+          <div class="kpi-tile">
+            <span class="stamp-magenta">Calificación</span>
+            <div class="kpi-value">06</div>
+            <div class="kpi-note">Preguntas de filtro rápido</div>
+          </div>
+          <div class="kpi-tile">
+            <span class="stamp-magenta">Hábitos</span>
+            <div class="kpi-value">03</div>
+            <div class="kpi-note">Reglas anti-interrogatorio</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: LAS 7 TÉCNICAS DE SONDEO -->
+    <section class="section-block reveal" id="sec-tecnicas" aria-labelledby="title-tecnicas">
+      <div class="section-header">
+        <span class="stamp">Módulo 01 · Secuencia de Conversación</span>
+        <h2 class="misregister section-title" id="title-tecnicas">Cada pregunta abre una puerta distinta de la venta</h2>
+        <p class="section-intro">
+          El sondeo no es un cuestionario al azar: sigue un arco lógico desde la exploración abierta hasta la validación de intención. Selecciona cada etapa para escuchar el guión en contexto, ver la reacción del cliente y marcarla como practicada.
+        </p>
+      </div>
+
+      <div class="sondeo-workspace">
+        <div class="sondeo-list" id="sondeo-cards-list" role="list"></div>
+
+        <aside class="ink-block-yellow sondeo-detail" id="sondeo-detail-panel" aria-live="polite">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+            <span class="stamp" id="sondeo-detail-kicker">01 · Exploración inicial</span>
+            <button type="button" class="btn btn-outline" id="sondeo-practice-btn" onclick="toggleCurrentTechniqueDone()">Marcar practicada</button>
+          </div>
+          <h3 class="subhead" id="sondeo-detail-title">Sondeo abierto</h3>
+          <p id="sondeo-detail-goal"></p>
+
+          <div>
+            <span class="stamp-magenta" style="display: block; margin-bottom: var(--space-xs);">Pregunta modelo en llamada</span>
+            <div class="quote-box" id="sondeo-detail-example"></div>
+          </div>
+
+          <div class="dialogue-sim" id="sondeo-detail-dialogue"></div>
+
+          <div class="recessed-panel">
+            <span class="stamp-magenta" style="display: block; margin-bottom: var(--space-xs);">Qué evita este sondeo</span>
+            <p id="sondeo-detail-avoid" style="font-size: 0.94rem;"></p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Overprint Visualization: Call Balance Across the 7 Stages -->
+      <div class="ink-block chart-block">
+        <div class="chart-header">
+          <div>
+            <h3 class="subhead">Balance conversacional a lo largo de los 7 sondeos</h3>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant);">
+              Referencia pedagógica de cómo se distribuye el protagonismo entre escucha del cliente y conducción del asesor.
+            </p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch swatch-blue"></span>Habla el cliente (descubrimiento)</span>
+            <span class="legend-item"><span class="legend-swatch swatch-magenta"></span>Conduce el asesor (filtro y oferta)</span>
+          </div>
+        </div>
+
+        <svg class="overprint-svg" viewBox="0 0 840 230" role="img" aria-label="Gráfico de barras superpuestas mostrando la proporción entre habla del cliente y conducción del asesor en las 7 etapas del sondeo">
+          <!-- Baseline and dashed gridlines -->
+          <line x1="50" y1="30" x2="810" y2="30" stroke="var(--outline-variant)" stroke-dasharray="4 4"></line>
+          <line x1="50" y1="80" x2="810" y2="80" stroke="var(--outline-variant)" stroke-dasharray="4 4"></line>
+          <line x1="50" y1="130" x2="810" y2="130" stroke="var(--outline-variant)" stroke-dasharray="4 4"></line>
+          <line x1="50" y1="180" x2="810" y2="180" stroke="var(--outline)" stroke-width="2"></line>
+
+          <!-- Y axis labels -->
+          <text x="42" y="34" text-anchor="end" font-family="Space Mono, monospace" font-size="11" fill="var(--on-surface-variant)">100%</text>
+          <text x="42" y="84" text-anchor="end" font-family="Space Mono, monospace" font-size="11" fill="var(--on-surface-variant)">66%</text>
+          <text x="42" y="134" text-anchor="end" font-family="Space Mono, monospace" font-size="11" fill="var(--on-surface-variant)">33%</text>
+          <text x="42" y="184" text-anchor="end" font-family="Space Mono, monospace" font-size="11" fill="var(--on-surface-variant)">0%</text>
+
+          <!-- Stage 1: Abierto (Client 80%, Advisor 20%) -->
+          <rect class="overprint-mark" x="80" y="60" width="38" height="120" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="104" y="150" width="38" height="30" fill="var(--data-2)"></rect>
+          <text x="111" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">01 ABIERTO</text>
+
+          <!-- Stage 2: Cerrado (Client 45%, Advisor 55%) -->
+          <rect class="overprint-mark" x="188" y="112" width="38" height="68" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="212" y="98" width="38" height="82" fill="var(--data-2)"></rect>
+          <text x="219" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">02 CERRADO</text>
+
+          <!-- Stage 3: Dolor (Client 75%, Advisor 25%) -->
+          <rect class="overprint-mark" x="296" y="68" width="38" height="112" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="320" y="142" width="38" height="38" fill="var(--data-2)"></rect>
+          <text x="327" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">03 DOLOR</text>
+
+          <!-- Stage 4: Consumo (Client 65%, Advisor 35%) -->
+          <rect class="overprint-mark" x="404" y="82" width="38" height="98" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="428" y="128" width="38" height="52" fill="var(--data-2)"></rect>
+          <text x="435" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">04 CONSUMO</text>
+
+          <!-- Stage 5: Económico (Client 50%, Advisor 50%) -->
+          <rect class="overprint-mark" x="512" y="105" width="38" height="75" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="536" y="105" width="38" height="75" fill="var(--data-2)"></rect>
+          <text x="543" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">05 ECONÓMICO</text>
+
+          <!-- Stage 6: Expansión (Client 60%, Advisor 40%) -->
+          <rect class="overprint-mark" x="620" y="90" width="38" height="90" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="644" y="120" width="38" height="60" fill="var(--data-2)"></rect>
+          <text x="651" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">06 EXPANSIÓN</text>
+
+          <!-- Stage 7: Pre-cierre (Client 30%, Advisor 70%) -->
+          <rect class="overprint-mark" x="728" y="135" width="38" height="45" fill="var(--data-1)"></rect>
+          <rect class="overprint-mark" x="752" y="75" width="38" height="105" fill="var(--data-2)"></rect>
+          <text x="759" y="202" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="var(--on-surface)">07 PRE-CIERRE</text>
+
+          <!-- Annotation -->
+          <text x="80" y="20" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="var(--primary)">Inicio: 80% escucha activa para descubrir hábitos</text>
+          <text x="800" y="20" text-anchor="end" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="var(--tertiary)">Cierre: propuesta a medida y validación</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: SIMULADOR DE LLAMADA EN VIVO -->
+    <section class="section-block reveal" id="sec-simulador" aria-labelledby="title-simulador">
+      <div class="section-header">
+        <span class="stamp">Módulo 02 · Roleplay Interactivo (Caso Simulado)</span>
+        <h2 class="misregister section-title" id="title-simulador">Toma el micrófono: conduce una portabilidad de inicio a pre-cierre</h2>
+        <p class="section-intro">
+          Estás en línea con <strong>Carlos Muñoz</strong> (escenario de práctica simulado). En cada turno, elige la intervención que aplica el sondeo correcto, valida su respuesta y evita caer en un interrogatorio o recitar beneficios antes de tiempo.
+        </p>
+      </div>
+
+      <div class="sim-grid">
+        <div class="ink-block sim-console">
+          <div class="sim-topbar">
+            <span class="stamp" id="sim-step-badge">Turno 1 de 6 · Apertura y Titularidad</span>
+            <span class="stamp-magenta" id="sim-score-value">Sintonía: 0 pts</span>
+          </div>
+
+          <div class="sim-transcript" id="sim-transcript" aria-live="polite"></div>
+
+          <div>
+            <span class="stamp-magenta" style="display: block; margin-bottom: var(--space-xs);">Elige tu siguiente frase en llamada</span>
+            <div class="sim-options" id="sim-options"></div>
+          </div>
+
+          <div class="sim-feedback" id="sim-feedback" role="status"></div>
+
+          <div class="sim-controls-row">
+            <button type="button" class="btn btn-outline" id="sim-btn-restart" onclick="restartSimulator()">Reiniciar llamada</button>
+            <button type="button" class="btn btn-primary" id="sim-btn-next" onclick="advanceSimulator()" disabled>Siguiente turno</button>
+          </div>
+        </div>
+
+        <aside class="ink-block-blue qual-sheet" aria-label="Ficha de calificación en tiempo real">
+          <span class="stamp stamp-alt">Ficha de Calificación en Vivo</span>
+          <h3 class="subhead">Datos recolectados en el sondeo</h3>
+          <ul class="qual-list">
+            <li class="qual-row">
+              <span class="qual-key">Titularidad (60+?)</span>
+              <span class="qual-val" id="qual-titular">Sin validar</span>
+            </li>
+            <li class="qual-row">
+              <span class="qual-key">Modalidad actual</span>
+              <span class="qual-val" id="qual-modalidad">Sin detectar</span>
+            </li>
+            <li class="qual-row">
+              <span class="qual-key">Dolor / fricción</span>
+              <span class="qual-val" id="qual-dolor">Sin indagar</span>
+            </li>
+            <li class="qual-row">
+              <span class="qual-key">Consumo y apps</span>
+              <span class="qual-val" id="qual-consumo">Sin dimensionar</span>
+            </li>
+            <li class="qual-row">
+              <span class="qual-key">Anclaje económico</span>
+              <span class="qual-val" id="qual-gasto">Sin anclar</span>
+            </li>
+            <li class="qual-row">
+              <span class="qual-key">Líneas en hogar</span>
+              <span class="qual-val" id="qual-familia">Sin explorar</span>
+            </li>
+          </ul>
+          <div class="qual-rec" id="qual-recommendation">
+            Avanza en la llamada para desbloquear la recomendación exacta de oferta Mundo para Carlos.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: MATRIZ DE CALIFICACIÓN RÁPIDA -->
+    <section class="section-block reveal" id="sec-matriz" aria-labelledby="title-matriz">
+      <div class="section-header">
+        <span class="stamp">Módulo 03 · Matriz de Calificación Rápida</span>
+        <h2 class="misregister section-title" id="title-matriz">Seis filtros que traducen respuestas en oferta comercial</h2>
+        <p class="section-intro">
+          Selecciona el perfil de cliente que tienes al teléfono para iluminar al instante qué preguntas priorizar y cómo impactan el plan Mundo (capacidad S/M/L/XL, 300 GB, 500 GB, gigas libres, tarifa Senior o multilínea).
+        </p>
+      </div>
+
+      <div class="ink-block-blue" style="display: grid; gap: var(--space-lg);">
+        <div class="filter-bar" id="matrix-filters" role="group" aria-label="Filtrar matriz por perfil de cliente">
+          <button type="button" class="filter-chip is-active" data-filter="all" onclick="filterMatrix('all', this)">Ver matriz completa</button>
+          <button type="button" class="filter-chip" data-filter="prepago" onclick="filterMatrix('prepago', this)">Cliente Prepago / Nuevo</button>
+          <button type="button" class="filter-chip" data-filter="caro" onclick="filterMatrix('caro', this)">Paga boleta alta</button>
+          <button type="button" class="filter-chip" data-filter="heavy" onclick="filterMatrix('heavy', this)">Se queda sin gigas / RRSS</button>
+          <button type="button" class="filter-chip" data-filter="senior" onclick="filterMatrix('senior', this)">Titular 60+ años</button>
+          <button type="button" class="filter-chip" data-filter="familia" onclick="filterMatrix('familia', this)">Hogar con varias líneas</button>
+        </div>
+
+        <div class="matrix-callout" id="matrix-active-callout" aria-live="polite">
+          <div>
+            <span class="stamp-magenta">Guía de acción</span>
+            <p style="margin-top: 4px;">Haz clic en cualquier botón de práctica en la tabla para ensayar la pregunta clave y registrar el módulo como revisado.</p>
+          </div>
+          <span class="inline-note" id="matrix-copy-feedback"></span>
+        </div>
+
+        <div class="matrix-wrap">
+          <table class="riso-table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 24%;">Objetivo del sondeo</th>
+                <th scope="col" style="width: 36%;">Pregunta clave en llamada</th>
+                <th scope="col" style="width: 40%;">Impacto en la oferta comercial</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: BUENAS PRÁCTICAS Y DESAFÍO FINAL -->
+    <section class="section-block reveal" id="sec-practicas" aria-labelledby="title-practicas">
+      <div class="section-header">
+        <span class="stamp">Módulo 04 · Buenas Prácticas &amp; Certificación</span>
+        <h2 class="misregister section-title" id="title-practicas">Tres hábitos que separan un interrogatorio de una venta</h2>
+        <p class="section-intro">
+          Transforma errores frecuentes en frases ganadoras con un clic y resuelve el desafío rápido de tres escenarios para completar tu entrenamiento.
+        </p>
+      </div>
+
+      <div class="practices-grid">
+        <article class="ink-block practice-card">
+          <span class="stamp">Hábito 01</span>
+          <h3 class="subhead">Evitar el interrogatorio</h3>
+          <p style="font-size: 0.95rem;">
+            Intercala cada respuesta del cliente con una breve validación empática antes de lanzar la siguiente pregunta.
+          </p>
+          <div class="script-compare" id="bp-demo-1">
+            <span class="stamp-magenta" style="display: block; margin-bottom: 4px;">Modo robot (Evitar)</span>
+            “¿Cuánto paga? ¿Cuántas gigas tiene? ¿Está a su nombre? ¿Cuántos viven en su casa?”
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="toggleBestPractice(1, this)">Ver con validación</button>
+        </article>
+
+        <article class="ink-block practice-card">
+          <span class="stamp">Hábito 02</span>
+          <h3 class="subhead">Escuchar para argumentar</h3>
+          <p style="font-size: 0.95rem;">
+            No recites todos los beneficios del plan; menciona únicamente los que responden a lo que el cliente dijo necesitar.
+          </p>
+          <div class="script-compare" id="bp-demo-2">
+            <span class="stamp-magenta" style="display: block; margin-bottom: 4px;">Monólogo genérico (Evitar)</span>
+            “Tenemos 300 GB, 500 GB, gigas libres, roaming, minutos ilimitados, Spotify, redes sociales, tarifa Senior y…”
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="toggleBestPractice(2, this)">Filtrar por necesidad</button>
+        </article>
+
+        <article class="ink-block practice-card">
+          <span class="stamp">Hábito 03</span>
+          <h3 class="subhead">Confirmar titularidad temprano</h3>
+          <p style="font-size: 0.95rem;">
+            Validar en los primeros minutos si el cliente es dueño de la línea evita perder tiempo en negociaciones que no pueden cerrarse ahora.
+          </p>
+          <div class="script-compare" id="bp-demo-3">
+            <span class="stamp-magenta" style="display: block; margin-bottom: 4px;">Sorpresa al final (Evitar)</span>
+            Tras 12 minutos de oferta y pre-cierre: “Ah, disculpe, el número está a nombre de mi hermano que está de viaje”.
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="toggleBestPractice(3, this)">Validar al inicio</button>
+        </article>
+      </div>
+
+      <!-- Mini Quiz Final -->
+      <div class="ink-block-yellow" style="display: grid; gap: var(--space-lg);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div>
+            <span class="stamp">Desafío Relámpago</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">Diagnostica la técnica correcta en 3 situaciones reales</h3>
+          </div>
+          <span class="stamp-magenta" id="quiz-score-banner">0 de 3 acertadas</span>
+        </div>
+
+        <div class="quiz-grid" id="quiz-container"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER & EXPORT -->
+    <footer class="source-footer">
+      <div>
+        <strong>Fuentes de formación:</strong> Material interno de técnicas de sondeo según conversación, matriz de calificación rápida y buenas prácticas para asesores de Konecta y Mundo.
+      </div>
+      <div class="export-row">
+        <span class="inline-note" id="export-feedback"></span>
+        <button type="button" class="btn btn-outline" id="btn-export-summary" onclick="exportTrainingSummary()">Descargar resumen (.txt)</button>
+      </div>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // DATA (Backtick template literals for apostrophe/newline safety)
+    // =========================================================================
+    const SONDEOS = [
+      {
+        id: 'abierto',
+        num: '01',
+        name: `Sondeo abierto`,
+        tag: `Exploración inicial`,
+        goal: `Busca que el cliente describa su situación actual con respuestas amplias, revelando hábitos y oportunidades de mejora.`,
+        example: `“¿Con qué compañía tiene su línea móvil actualmente y qué tal ha sido su experiencia con el servicio y los cobros?”`,
+        advisorLine: `“Hola Carlos, gracias por atender. Cuénteme, ¿con qué compañía tiene su línea móvil actualmente y qué tal ha sido su experiencia con el servicio y los cobros?”`,
+        clientLine: `“Estoy en otra compañía hace años. La señal más o menos, pero lo que me molesta es que siempre termino pagando más de lo que contraté.”`,
+        avoid: `Evita arrancar con preguntas de sí/no o soltar una oferta sin saber cómo evalúa el cliente su servicio actual.`
+      },
+      {
+        id: 'cerrado',
+        num: '02',
+        name: `Sondeo cerrado`,
+        tag: `Calificación y filtro`,
+        goal: `Sirve para confirmar datos puntuales, validar requisitos de portabilidad o verificar elegibilidad para tarifas especiales (como planes Senior o de cartera).`,
+        example: `“¿Su número actual está a su nombre como titular?” / “¿Hoy utiliza modalidad prepago o tiene un plan con boleta mensual?”`,
+        advisorLine: `“Entiendo esa molestia con los cobros. Para orientarlo bien desde ya: ¿su número actual está a su nombre como titular y hoy ocupa plan con boleta o prepago?”`,
+        clientLine: `“Sí, está a mi nombre y tengo plan mensual con boleta.”`,
+        avoid: `Evita avanzar toda la llamada sin confirmar titularidad, modalidad de portabilidad o edad para tarifa Senior (60+).`
+      },
+      {
+        id: 'dolor',
+        num: '03',
+        name: `Sondeo de dolor o fricción`,
+        tag: `Detección de necesidad`,
+        goal: `Apunta directamente a las molestias frecuentes en telefonía móvil (alzas inesperadas de precio, quedarse sin gigas o mala cobertura) para posicionar la oferta como solución.`,
+        example: `“¿Le ha ocurrido que su boleta sube cada cierto tiempo sin aviso o que se queda sin datos antes de terminar el mes?”`,
+        advisorLine: `“Mencionó que termina pagando más. ¿Le ha ocurrido que su boleta sube cada cierto tiempo sin aviso o que se queda sin datos antes de terminar el mes?”`,
+        clientLine: `“Exacto, hace tres meses me subieron el cargo fijo sin avisar y además alrededor del día 20 ya navego lentísimo.”`,
+        avoid: `Evita argumentar descuentos genéricos cuando el cliente todavía no ha verbalizado qué le frustra de su compañía actual.`
+      },
+      {
+        id: 'consumo',
+        num: '04',
+        name: `Sondeo de consumo`,
+        tag: `Dimensionamiento del plan`,
+        goal: `Permite identificar cuántas gigas, minutos y aplicaciones utiliza realmente el usuario para no ofrecerle un plan insuficiente ni uno innecesariamente costoso.`,
+        example: `“Cuando está fuera de casa sin Wi-Fi, ¿qué usa más: redes sociales, música en streaming o videos y trabajo?”`,
+        advisorLine: `“Qué incómodo quedar lento a mitad de mes. Cuando está fuera de casa sin Wi-Fi, ¿qué usa más: redes sociales, música en streaming o videos y trabajo?”`,
+        clientLine: `“Escucho Spotify todo el trayecto al trabajo y reviso Instagram y WhatsApp en la calle, ahí se me van las gigas.”`,
+        avoid: `Evita vender un plan pequeño que volverá a dejarlo sin datos o encarecer la propuesta con gigas libres si no los necesita.`
+      },
+      {
+        id: 'economico',
+        num: '05',
+        name: `Sondeo económico`,
+        tag: `Anclaje de ahorro`,
+        goal: `Establece el punto de referencia sobre cuánto gasta hoy el cliente para que el valor permanente del nuevo plan se perciba como un ahorro inmediato.`,
+        example: `“Aproximadamente, ¿cuánto está pagando hoy al mes por su plan móvil?”`,
+        advisorLine: `“Con Spotify y redes sin descontar de su cuota va a notar la diferencia al tiro. Para calcular el ahorro real, aproximadamente ¿cuánto está pagando hoy al mes por su plan móvil?”`,
+        clientLine: `“El último mes me llegó la boleta por casi veintidós mil pesos.”`,
+        avoid: `Evita dar el precio del plan Mundo sin antes conocer su boleta actual: sin punto de referencia no hay percepción de ahorro.`
+      },
+      {
+        id: 'expansion',
+        num: '06',
+        name: `Sondeo de expansión familiar`,
+        tag: `Venta multilínea`,
+        goal: `Identifica si existen otras líneas en el hogar para aprovechar descuentos por líneas adicionales y aumentar el volumen de venta en una sola llamada.`,
+        example: `“Además de su línea, ¿alguien más en su familia o pareja tiene plan en otra compañía por el que estén pagando de más?”`,
+        advisorLine: `“Excelente, ahí ya tiene un ahorro permanente importante. Además de su línea, ¿alguien más en su familia o pareja tiene plan en otra compañía por el que estén pagando de más?”`,
+        clientLine: `“Sí, mi pareja paga aparte otro plan parecido y mi mamá también tiene una línea con más de 60 años.”`,
+        avoid: `Evita cerrar una sola línea cuando en el mismo hogar existen dos o tres oportunidades listas para tarifa adicional o Senior.`
+      },
+      {
+        id: 'precierre',
+        num: '07',
+        name: `Sondeo de pre-cierre`,
+        tag: `Validación de intención`,
+        goal: `Confirma que la propuesta resolvió la necesidad del cliente antes de solicitar los datos personales y de despacho.`,
+        example: `“Si mantenemos su mismo número, le entregamos redes libres y le aseguramos un precio fijo permanente más bajo que su boleta actual, ¿realizamos el cambio ahora?”`,
+        advisorLine: `“Entonces, Carlos: si mantenemos su mismo número, le entregamos redes libres y Spotify sin consumo de cuota, y le aseguramos un precio fijo permanente más bajo que su boleta actual, ¿realizamos el cambio ahora?”`,
+        clientLine: `“Sí, si mantengo el número y el precio queda fijo, hagamos el cambio ahora.”`,
+        avoid: `Evita pedir RUT, dirección o datos de despacho de golpe sin haber confirmado primero que la propuesta convenció al cliente.`
+      }
+    ];
+
+    const SIM_STEPS = [
+      {
+        badge: `Turno 1 de 6 · Apertura y Titularidad`,
+        clientPrompt: `Carlos: “Aló, sí, dígame, estoy trabajando así que tengo un par de minutos.”`,
+        options: [
+          {
+            quality: `bad`,
+            text: `“Hola Carlos, le llamo de Mundo para ofrecerle planes desde 300 GB, 500 GB y gigas libres con Spotify gratis, ¿le interesa cambiarse?”`,
+            feedback: `Error de catálogo: lanzaste beneficios sin escuchar ni confirmar si es titular. En frío, esto dispara rechazo inmediato.`,
+            reply: `Carlos: “No gracias, ya tengo plan y estoy ocupado.”`,
+            score: 0,
+            updates: {}
+          },
+          {
+            quality: `good`,
+            text: `“Gracias por esos dos minutos, Carlos. Antes de quitarle tiempo: ¿su línea actual está a su nombre como titular y con qué compañía está hoy?”`,
+            feedback: `¡Excelente! Combinaste sondeo cerrado temprano (titularidad) con sondeo abierto breve, respetando su tiempo.`,
+            reply: `Carlos: “Sí, está a mi nombre. Estoy en otra compañía con plan mensual, aunque últimamente me tienen medio cansado.”`,
+            score: 20,
+            updates: { titular: `Confirmado (Titular, 38 años)`, modalidad: `Portabilidad plan mensual` }
+          },
+          {
+            quality: `warn`,
+            text: `“¿Cuánto paga al mes? ¿Cuántas gigas tiene? ¿Usa redes sociales? ¿Tiene más líneas en su casa?”`,
+            feedback: `Interrogatorio: lanzar cuatro preguntas seguidas sin validar ni respetar su ritmo pone al cliente a la defensiva.`,
+            reply: `Carlos: “Oiga, parece encuesta esto… dígame rápido qué ofrece mejor.”`,
+            score: 8,
+            updates: { modalidad: `Plan mensual (sin validar titular)` }
+          }
+        ]
+      },
+      {
+        badge: `Turno 2 de 6 · Dolor / Fricción`,
+        clientPrompt: `Carlos mencionó que está “medio cansado” de su compañía actual. ¿Cómo profundizas?`,
+        options: [
+          {
+            quality: `good`,
+            text: `“Entiendo, cansa bastante cuando el servicio no acompaña. ¿Le ha ocurrido que su boleta sube sin aviso o que se queda sin datos antes de terminar el mes?”`,
+            feedback: `¡Muy bien! Validaste su comentario antes de preguntar y fuiste directo al sondeo de dolor o fricción.`,
+            reply: `Carlos: “Justamente ambas cosas: me subieron el cobro hace poco y a la tercera semana ya ando colgado de Wi-Fi.”`,
+            score: 20,
+            updates: { dolor: `Alzas sin aviso + se queda sin gigas` }
+          },
+          {
+            quality: `warn`,
+            text: `“Bueno, nosotros somos más baratos. ¿Quiere que le mande el folleto por WhatsApp?”`,
+            feedback: `Perdiste la oportunidad de descubrir su fricción real; sin dolor detectado, el cambio pierde urgencia.`,
+            reply: `Carlos: “Mándelo no más y después veo.”`,
+            score: 5,
+            updates: {}
+          },
+          {
+            quality: `bad`,
+            text: `“¿Y su número es prepago o plan? ¿Tiene 60 años o más?”`,
+            feedback: `No escuchaste lo que acaba de decir sobre su cansancio y repetiste filtros sin empatía.`,
+            reply: `Carlos: “Ya le dije que tengo plan… y no, tengo 38.”`,
+            score: 0,
+            updates: { titular: `Titular (38 años)` }
+          }
+        ]
+      },
+      {
+        badge: `Turno 3 de 6 · Dimensionamiento de Consumo`,
+        clientPrompt: `Ya sabes que se queda sin datos a la tercera semana. Toca dimensionar su consumo real.`,
+        options: [
+          {
+            quality: `warn`,
+            text: `“Ah qué lata. Entonces le pongo el plan XL de gigas libres para que nunca más le pase.”`,
+            feedback: `Subir al máximo sin sondear su uso real puede encarecer la oferta innecesariamente.`,
+            reply: `Carlos: “¿Y cuánto sale eso? Capaz es mucho más caro de lo que necesito.”`,
+            score: 8,
+            updates: {}
+          },
+          {
+            quality: `good`,
+            text: `“Quedar sin datos a mitad de mes es súper incómodo. Cuando está fuera de casa sin Wi-Fi, ¿qué usa más: redes sociales, música en streaming o videos y trabajo?”`,
+            feedback: `¡Exacto! Aplicaste el sondeo de consumo con validación previa para elegir entre 300 GB, 500 GB o gigas libres.`,
+            reply: `Carlos: “Sobre todo Spotify en la micro y redes sociales en la tarde; videos largos casi siempre en la casa con Wi-Fi.”`,
+            score: 20,
+            updates: { consumo: `Spotify diario + RRSS fuera de casa` }
+          },
+          {
+            quality: `bad`,
+            text: `“¿Cuántos minutos habla por teléfono al mes aproximadamente?”`,
+            feedback: `Su dolor eran los datos móviles, no la voz. Preguntar minutos desvía el foco del diagnóstico.`,
+            reply: `Carlos: “Casi ni llamo, todo es por WhatsApp.”`,
+            score: 2,
+            updates: {}
+          }
+        ]
+      },
+      {
+        badge: `Turno 4 de 6 · Anclaje Económico`,
+        clientPrompt: `Sabes que usa Spotify y redes a diario. Ahora debes establecer la referencia de gasto.`,
+        options: [
+          {
+            quality: `good`,
+            text: `“Perfecto, porque nuestras apps incluidas no descuentan de su cuota. Para mostrarle cuánto ahorraría al mes: aproximadamente, ¿cuánto está pagando hoy por su boleta?”`,
+            feedback: `¡Impecable! Conectaste el beneficio exacto que escuchaste (apps incluidas) con el sondeo económico.`,
+            reply: `Carlos: “Hoy estoy pagando cerca de veintiún mil pesos al mes por todo eso.”`,
+            score: 15,
+            updates: { gasto: `Ref. alta (~$21 mil/mes en boleta)` }
+          },
+          {
+            quality: `bad`,
+            text: `“Tenemos un plan mucho más barato con precio fijo permanente, ¿le gusta?”`,
+            feedback: `Sin preguntarle cuánto paga hoy, el cliente no puede contrastar ni sentir el ahorro inmediato.`,
+            reply: `Carlos: “Depende, ¿cuánto es ‘más barato’ para ustedes?”`,
+            score: 3,
+            updates: {}
+          },
+          {
+            quality: `warn`,
+            text: `“¿Cuánto paga hoy y cuántos gigas tiene en su plan actual?”`,
+            feedback: `Correcto en fondo, pero faltó validar su uso de Spotify/redes antes de preguntar la cifra.`,
+            reply: `Carlos: “Pago como veintiún mil pesos por 40 gigas.”`,
+            score: 10,
+            updates: { gasto: `Ref. alta (~$21 mil/mes)` }
+          }
+        ]
+      },
+      {
+        badge: `Turno 5 de 6 · Expansión Familiar`,
+        clientPrompt: `El ahorro para Carlos ya es claro. Antes de cerrar, ¿cómo multiplicas la oportunidad en el hogar?`,
+        options: [
+          {
+            quality: `bad`,
+            text: `“Listo entonces, deme su RUT y dirección para despachar el chip de su línea.”`,
+            feedback: `Te saltaste tanto el sondeo de expansión familiar como el pre-cierre. Podrías perder ventas adicionales.`,
+            reply: `Carlos: “Espere, todavía no le he dicho que sí…”`,
+            score: 0,
+            updates: {}
+          },
+          {
+            quality: `good`,
+            text: `“Con ese monto actual el ahorro permanente es inmediato. Además de su línea, ¿alguien más en su familia o pareja tiene plan en otra compañía por el que estén pagando de más?”`,
+            feedback: `¡De manual! Sondeo de expansión familiar justo antes de presentar la validación final.`,
+            reply: `Carlos: “Ahora que lo dice, mi pareja paga otro plan aparte y mi mamá de 64 años también tiene línea móvil.”`,
+            score: 15,
+            updates: { familia: `3 líneas totales (incluye Senior 60+)` }
+          },
+          {
+            quality: `warn`,
+            text: `“Si quiere después nos recomienda con algún amigo.”`,
+            feedback: `Dejaste pasar líneas activas dentro del mismo hogar que califican para descuento adicional y tarifa Senior.`,
+            reply: `Carlos: “Ya, bueno.”`,
+            score: 4,
+            updates: {}
+          }
+        ]
+      },
+      {
+        badge: `Turno 6 de 6 · Pre-cierre`,
+        clientPrompt: `Tienes todo: titularidad, dolor, apps, ahorro y 3 líneas (una Senior 60+). Cierra la intención.`,
+        options: [
+          {
+            quality: `good`,
+            text: `“Carlos, si mantenemos su mismo número, le entregamos redes y Spotify libres sin descontar gigas, precio fijo permanente menor a su boleta actual y tarifa preferencial para su mamá, ¿realizamos el cambio ahora?”`,
+            feedback: `¡Cierre perfecto! Resumiste únicamente lo que Carlos necesitaba y validaste intención antes de pedir datos.`,
+            reply: `Carlos: “Sí, con esas condiciones y precio fijo sí me cambio ahora. ¿Qué datos necesita?”`,
+            score: 10,
+            updates: {}
+          },
+          {
+            quality: `warn`,
+            text: `“Entonces, ¿quiere que lo llame mañana para ver qué decidió?”`,
+            feedback: `Enfrías la venta cuando todas las necesidades ya quedaron resueltas en la llamada.`,
+            reply: `Carlos: “Bueno, llámeme la otra semana mejor.”`,
+            score: 3,
+            updates: {}
+          },
+          {
+            quality: `bad`,
+            text: `“Dígame los 16 dígitos de su tarjeta y su dirección exacta para enviarle tres chips ahora mismo.”`,
+            feedback: `Pedir datos personales/despacho sin un pre-cierre explícito genera desconfianza y objeciones.`,
+            reply: `Carlos: “Oiga, espere un poco, no le he confirmado nada todavía.”`,
+            score: 0,
+            updates: {}
+          }
+        ]
+      }
+    ];
+
+    const MATRIX_ROWS = [
+      {
+        goal: `Definir modalidad`,
+        tags: [`prepago`],
+        question: `“¿Su línea actual es prepago o con plan mensual?”`,
+        impact: `Determina si entra como portabilidad prepago, portabilidad plan o línea nueva.`
+      },
+      {
+        goal: `Calcular ahorro`,
+        tags: [`caro`],
+        question: `“¿Cuánto paga hoy por su servicio móvil?”`,
+        impact: `Permite contrastar su gasto actual contra tarifas fijas permanentes.`
+      },
+      {
+        goal: `Elegir capacidad (S/M/L/XL)`,
+        tags: [`heavy`],
+        question: `“¿Cuántas gigas tiene hoy y le alcanzan para todo el mes?”`,
+        impact: `Evita subdimensionar el plan y justifica el salto a 300 GB, 500 GB o gigas libres.`
+      },
+      {
+        goal: `Activar beneficios de apps`,
+        tags: [`heavy`],
+        question: `“¿Usa Spotify o redes sociales a diario fuera de casa?”`,
+        impact: `Resalta que las aplicaciones incluidas no descuentan de su cuota de navegación.`
+      },
+      {
+        goal: `Detectar nicho Senior`,
+        tags: [`senior`],
+        question: `“¿El titular de la línea tiene 60 años o más?”`,
+        impact: `Habilita el acceso inmediato a tarifa preferencial exclusiva.`
+      },
+      {
+        goal: `Multiplicar líneas`,
+        tags: [`familia`],
+        question: `“¿Cuántas líneas móviles pagan en total en su casa?”`,
+        impact: `Abre la puerta a ofrecer planes adicionales con menor costo promedio por línea.`
+      }
+    ];
+
+    const BEST_PRACTICES_GOOD = {
+      1: {
+        label: `Con validación empática (Recomendado)`,
+        text: `“Entiendo, pagar eso hoy es bastante alto para lo que usa. Y pensando en aprovechar mejor su cuota, cuando está fuera de casa ¿qué aplicaciones ocupa más?”`
+      },
+      2: {
+        label: `Argumento dirigido al dolor (Recomendado)`,
+        text: `“Como usted me comentó que escucha Spotify en el trayecto y se queda sin datos a fin de mes, este plan incluye Spotify y redes sociales sin descontar de sus 300 GB y con precio fijo permanente.”`
+      },
+      3: {
+        label: `Validación temprana en minuto 1 (Recomendado)`,
+        text: `“Antes de revisar opciones de ahorro, ¿su número actual está a su nombre como titular? Así confirmamos de inmediato si podemos dejar el cambio listo hoy.”`
+      }
+    };
+
+    const BEST_PRACTICES_BAD = {
+      1: {
+        label: `Modo robot (Evitar)`,
+        text: `“¿Cuánto paga? ¿Cuántas gigas tiene? ¿Está a su nombre? ¿Cuántos viven en su casa?”`
+      },
+      2: {
+        label: `Monólogo genérico (Evitar)`,
+        text: `“Tenemos 300 GB, 500 GB, gigas libres, roaming, minutos ilimitados, Spotify, redes sociales, tarifa Senior y…”`
+      },
+      3: {
+        label: `Sorpresa al final (Evitar)`,
+        text: `Tras 12 minutos de oferta y pre-cierre: “Ah, disculpe, el número está a nombre de mi hermano que está de viaje”.`
+      }
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: `q1`,
+        prompt: `1. El cliente dice: “Mi papá de 67 años usa el teléfono solo para WhatsApp y llamadas, pero su plan actual le sale carísimo”. ¿Qué pregunta clave de la matriz debes confirmar de inmediato?`,
+        options: [
+          `“¿Su papá figura como titular de la línea para habilitar la tarifa preferencial Senior 60+?”`,
+          `“¿Le gustaría contratar nuestro plan XL de gigas libres para videos en 4K?”`,
+          `“¿Quiere que despachemos el chip mañana mismo sin revisar su boleta?”`
+        ],
+        correctIdx: 0,
+        explain: `Correcto: validar que el titular tiene 60 años o más habilita el acceso inmediato a la tarifa preferencial exclusiva Senior.`
+      },
+      {
+        id: `q2`,
+        prompt: `2. El cliente responde que paga bastante alto cada mes y se queda sin datos por usar redes sociales en la calle. ¿Qué combinación de sondeos acabas de completar?`,
+        options: [
+          `Sondeo de pre-cierre y sondeo de expansión familiar.`,
+          `Sondeo de dolor/fricción, consumo y anclaje económico.`,
+          `Únicamente sondeo cerrado de modalidad prepago.`
+        ],
+        correctIdx: 1,
+        explain: `Exacto: detectaste su fricción (quedarse sin datos), su consumo (redes sociales) y su referencia económica para contrastar ahorro.`
+      },
+      {
+        id: `q3`,
+        prompt: `3. Antes de pedir RUT y dirección de despacho, ¿cuál es el objetivo del sondeo de pre-cierre?`,
+        options: [
+          `Recitar los términos legales completos del contrato.`,
+          `Volver a preguntar con qué compañía estuvo hace cinco años.`,
+          `Confirmar que la propuesta resolvió la necesidad del cliente y validar su intención de cambio.`
+        ],
+        correctIdx: 2,
+        explain: `Así es: el pre-cierre valida la intención ("¿realizamos el cambio ahora?") antes de pasar a la toma de datos.`
+      }
+    ];
+
+    // =========================================================================
+    // STATE (Persisted via window.notebookAppApi)
+    // =========================================================================
+    const appState = {
+      selectedSondeoIdx: 0,
+      practicedSondeos: [],
+      simBestScore: 0,
+      simCompleted: false,
+      matrixPracticed: false,
+      quizAnswers: {},
+      bpFlipped: { 1: false, 2: false, 3: false }
+    };
+
+    let simTurnIdx = 0;
+    let simCurrentScore = 0;
+    let simTurnAnswered = false;
+    let simHistory = [];
+    let simQualData = {
+      titular: `Sin validar`,
+      modalidad: `Sin detectar`,
+      dolor: `Sin indagar`,
+      consumo: `Sin dimensionar`,
+      gasto: `Sin anclar`,
+      familia: `Sin explorar`
+    };
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState({
+            selectedSondeoIdx: appState.selectedSondeoIdx,
+            practicedSondeos: appState.practicedSondeos,
+            simBestScore: appState.simBestScore,
+            simCompleted: appState.simCompleted,
+            matrixPracticed: appState.matrixPracticed,
+            quizAnswers: appState.quizAnswers,
+            bpFlipped: appState.bpFlipped
+          });
+        }
+      } catch (err) {
+        // Silent fallback when running outside host container
+      }
+    }
+
+    // =========================================================================
+    // PROGRESS TRACKING
+    // =========================================================================
+    function computeModulesCompleted() {
+      let count = 0;
+      if (appState.practicedSondeos.length >= 3) count += 1;
+      if (appState.simCompleted) count += 1;
+      if (appState.matrixPracticed) count += 1;
+      const quizKeys = Object.keys(appState.quizAnswers);
+      let quizCorrect = 0;
+      for (let i = 0; i < QUIZ_QUESTIONS.length; i += 1) {
+        const q = QUIZ_QUESTIONS[i];
+        if (appState.quizAnswers[q.id] === q.correctIdx) quizCorrect += 1;
+      }
+      if (quizKeys.length === QUIZ_QUESTIONS.length && quizCorrect >= 2) count += 1;
+      return count;
+    }
+
+    function updateProgressUI() {
+      const done = computeModulesCompleted();
+      const pct = Math.round((done / 4) * 100);
+      const countEl = document.getElementById('progress-count');
+      const fillEl = document.getElementById('progress-bar-fill');
+      const labelEl = document.getElementById('progress-status-label');
+      if (countEl) countEl.textContent = `${done}/4 Módulos`;
+      if (fillEl) fillEl.style.width = `${pct}%`;
+      if (labelEl) labelEl.textContent = done === 4 ? `Completado` : `Progreso`;
+    }
+
+    function handleResetProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `Reiniciar avance`;
+
+      appState.selectedSondeoIdx = 0;
+      appState.practicedSondeos = [];
+      appState.simBestScore = 0;
+      appState.simCompleted = false;
+      appState.matrixPracticed = false;
+      appState.quizAnswers = {};
+      appState.bpFlipped = { 1: false, 2: false, 3: false };
+
+      renderSondeoList();
+      selectSondeo(0, false);
+      restartSimulator();
+      filterMatrix('all', document.querySelector('#matrix-filters .filter-chip'));
+      resetBestPracticesUI();
+      renderQuiz();
+      updateProgressUI();
+      persistState();
+    }
+
+    // =========================================================================
+    // MODULE 1: 7 PROBING TECHNIQUES
+    // =========================================================================
+    function renderSondeoList() {
+      const listEl = document.getElementById('sondeo-cards-list');
+      if (!listEl) return;
+      let html = '';
+      for (let i = 0; i < SONDEOS.length; i += 1) {
+        const item = SONDEOS[i];
+        const isSelected = i === appState.selectedSondeoIdx;
+        const isDone = appState.practicedSondeos.indexOf(item.id) !== -1;
+        html += `
+          <button type="button"
+            class="sondeo-item ${isSelected ? 'is-selected' : ''}"
+            onclick="selectSondeo(${i}, true)"
+            aria-pressed="${isSelected ? 'true' : 'false'}">
+            <span class="sondeo-num">${item.num}</span>
+            <span>
+              <span class="sondeo-item-title">${item.name}</span>
+              <span class="sondeo-item-sub">${item.tag}</span>
+            </span>
+            <span class="sondeo-status-chip ${isDone ? 'is-done' : ''}">${isDone ? 'Practicado' : 'Explorar'}</span>
+          </button>
+        `;
+      }
+      listEl.innerHTML = html;
+    }
+
+    function selectSondeo(idx, shouldSave) {
+      if (idx < 0 || idx >= SONDEOS.length) return;
+      appState.selectedSondeoIdx = idx;
+      const item = SONDEOS[idx];
+
+      const kickerEl = document.getElementById('sondeo-detail-kicker');
+      const titleEl = document.getElementById('sondeo-detail-title');
+      const goalEl = document.getElementById('sondeo-detail-goal');
+      const exampleEl = document.getElementById('sondeo-detail-example');
+      const dialogueEl = document.getElementById('sondeo-detail-dialogue');
+      const avoidEl = document.getElementById('sondeo-detail-avoid');
+      const practiceBtn = document.getElementById('sondeo-practice-btn');
+
+      if (kickerEl) kickerEl.textContent = `${item.num} · ${item.tag}`;
+      if (titleEl) titleEl.textContent = item.name;
+      if (goalEl) goalEl.textContent = item.goal;
+      if (exampleEl) exampleEl.textContent = item.example;
+      if (avoidEl) avoidEl.textContent = item.avoid;
+
+      if (dialogueEl) {
+        dialogueEl.innerHTML = `
+          <span class="stamp-magenta">Simulación en llamada</span>
+          <div class="bubble bubble-advisor">
+            <span class="bubble-role">Asesor Konecta / Mundo</span>
+            ${item.advisorLine}
+          </div>
+          <div class="bubble bubble-client">
+            <span class="bubble-role">Respuesta del cliente</span>
+            ${item.clientLine}
+          </div>
+        `;
+      }
+
+      const isDone = appState.practicedSondeos.indexOf(item.id) !== -1;
+      if (practiceBtn) {
+        practiceBtn.textContent = isDone ? `Practicada` : `Marcar practicada`;
+        practiceBtn.className = isDone ? `btn btn-secondary` : `btn btn-outline`;
+      }
+
+      renderSondeoList();
+      if (shouldSave) persistState();
+    }
+
+    function toggleCurrentTechniqueDone() {
+      const item = SONDEOS[appState.selectedSondeoIdx];
+      if (!item) return;
+      const pos = appState.practicedSondeos.indexOf(item.id);
+      if (pos === -1) {
+        appState.practicedSondeos.push(item.id);
+      } else {
+        appState.practicedSondeos.splice(pos, 1);
+      }
+      selectSondeo(appState.selectedSondeoIdx, true);
+      updateProgressUI();
+    }
+
+    // =========================================================================
+    // MODULE 2: LIVE CALL SIMULATOR
+    // =========================================================================
+    function renderQualSheet() {
+      const map = [
+        ['qual-titular', simQualData.titular, `Sin validar`],
+        ['qual-modalidad', simQualData.modalidad, `Sin detectar`],
+        ['qual-dolor', simQualData.dolor, `Sin indagar`],
+        ['qual-consumo', simQualData.consumo, `Sin dimensionar`],
+        ['qual-gasto', simQualData.gasto, `Sin anclar`],
+        ['qual-familia', simQualData.familia, `Sin explorar`]
+      ];
+      for (let i = 0; i < map.length; i += 1) {
+        const el = document.getElementById(map[i][0]);
+        if (!el) continue;
+        el.textContent = map[i][1];
+        if (map[i][1] !== map[i][2]) {
+          el.classList.add('is-captured');
+        } else {
+          el.classList.remove('is-captured');
+        }
+      }
+
+      const recEl = document.getElementById('qual-recommendation');
+      if (!recEl) return;
+      if (simTurnIdx >= SIM_STEPS.length - 1 && simTurnAnswered) {
+        recEl.innerHTML = `<strong>Oferta Mundo recomendada:</strong> Portabilidad plan con 300 GB o 500 GB según consumo, Spotify y redes incluidas sin descontar cuota, precio fijo permanente bajo su boleta actual + línea adicional y tarifa preferencial Senior 60+ para su mamá.`;
+      } else if (simQualData.consumo !== `Sin dimensionar`) {
+        recEl.textContent = `Dimensionamiento activo: resalta apps incluidas (Spotify y redes) que no descuentan cuota y ancla su gasto mensual.`;
+      } else {
+        recEl.textContent = `Avanza en la llamada para desbloquear la recomendación exacta de oferta Mundo para Carlos.`;
+      }
+    }
+
+    function renderSimulatorTurn() {
+      const step = SIM_STEPS[simTurnIdx];
+      if (!step) return;
+
+      const badgeEl = document.getElementById('sim-step-badge');
+      const scoreEl = document.getElementById('sim-score-value');
+      const transcriptEl = document.getElementById('sim-transcript');
+      const optionsEl = document.getElementById('sim-options');
+      const feedbackEl = document.getElementById('sim-feedback');
+      const nextBtn = document.getElementById('sim-btn-next');
+
+      if (badgeEl) badgeEl.textContent = step.badge;
+      if (scoreEl) scoreEl.textContent = `Sintonía: ${simCurrentScore} pts`;
+
+      if (transcriptEl) {
+        let tHtml = '';
+        for (let i = 0; i < simHistory.length; i += 1) {
+          const entry = simHistory[i];
+          tHtml += `
+            <div class="bubble ${entry.role === 'advisor' ? 'bubble-advisor' : 'bubble-client'}">
+              <span class="bubble-role">${entry.role === 'advisor' ? 'Tú (Asesor)' : 'Carlos (Cliente)'}</span>
+              ${entry.text}
+            </div>
+          `;
+        }
+        if (!simTurnAnswered) {
+          tHtml += `
+            <div class="bubble bubble-client">
+              <span class="bubble-role">Situación actual</span>
+              ${step.clientPrompt}
+            </div>
+          `;
+        }
+        transcriptEl.innerHTML = tHtml;
+        transcriptEl.scrollTop = transcriptEl.scrollHeight;
+      }
+
+      if (optionsEl) {
+        let optHtml = '';
+        for (let i = 0; i < step.options.length; i += 1) {
+          const opt = step.options[i];
+          optHtml += `
+            <button type="button" class="sim-option-btn" data-opt="${i}" onclick="chooseSimOption(${i})">
+              <span>${opt.text}</span>
+            </button>
+          `;
+        }
+        optionsEl.innerHTML = optHtml;
+      }
+
+      if (feedbackEl) {
+        feedbackEl.className = `sim-feedback`;
+        feedbackEl.textContent = '';
+      }
+
+      if (nextBtn) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = simTurnIdx === SIM_STEPS.length - 1 ? `Finalizar llamada` : `Siguiente turno`;
+      }
+
+      renderQualSheet();
+    }
+
+    function chooseSimOption(optIdx) {
+      if (simTurnAnswered) return;
+      const step = SIM_STEPS[simTurnIdx];
+      if (!step || !step.options[optIdx]) return;
+
+      simTurnAnswered = true;
+      const chosen = step.options[optIdx];
+      simCurrentScore += chosen.score;
+
+      simHistory.push({ role: `advisor`, text: chosen.text });
+      simHistory.push({ role: `client`, text: chosen.reply });
+
+      const updateKeys = Object.keys(chosen.updates || {});
+      for (let i = 0; i < updateKeys.length; i += 1) {
+        const k = updateKeys[i];
+        simQualData[k] = chosen.updates[k];
+      }
+
+      const buttons = document.querySelectorAll('#sim-options .sim-option-btn');
+      for (let i = 0; i < buttons.length; i += 1) {
+        buttons[i].disabled = true;
+        const idxAttr = parseInt(buttons[i].getAttribute('data-opt'), 10);
+        if (idxAttr === optIdx) {
+          buttons[i].classList.add(chosen.quality === 'good' ? 'is-correct' : 'is-wrong');
+        }
+      }
+
+      const transcriptEl = document.getElementById('sim-transcript');
+      if (transcriptEl) {
+        let tHtml = '';
+        for (let i = 0; i < simHistory.length; i += 1) {
+          const entry = simHistory[i];
+          tHtml += `
+            <div class="bubble ${entry.role === 'advisor' ? 'bubble-advisor' : 'bubble-client'}">
+              <span class="bubble-role">${entry.role === 'advisor' ? 'Tú (Asesor)' : 'Carlos (Cliente)'}</span>
+              ${entry.text}
+            </div>
+          `;
+        }
+        transcriptEl.innerHTML = tHtml;
+        transcriptEl.scrollTop = transcriptEl.scrollHeight;
+      }
+
+      const scoreEl = document.getElementById('sim-score-value');
+      if (scoreEl) scoreEl.textContent = `Sintonía: ${simCurrentScore} pts`;
+
+      const feedbackEl = document.getElementById('sim-feedback');
+      if (feedbackEl) {
+        const toneClass = chosen.quality === 'good' ? 'is-good' : (chosen.quality === 'warn' ? 'is-warn' : 'is-bad');
+        feedbackEl.className = `sim-feedback is-visible ${toneClass}`;
+        feedbackEl.textContent = chosen.feedback;
+      }
+
+      const nextBtn = document.getElementById('sim-btn-next');
+      if (nextBtn) nextBtn.disabled = false;
+
+      renderQualSheet();
+    }
+
+    function advanceSimulator() {
+      if (!simTurnAnswered) return;
+      if (simTurnIdx < SIM_STEPS.length - 1) {
+        simTurnIdx += 1;
+        simTurnAnswered = false;
+        renderSimulatorTurn();
+      } else {
+        // Call completed
+        appState.simCompleted = true;
+        if (simCurrentScore > appState.simBestScore) {
+          appState.simBestScore = simCurrentScore;
+        }
+        const feedbackEl = document.getElementById('sim-feedback');
+        const optionsEl = document.getElementById('sim-options');
+        const nextBtn = document.getElementById('sim-btn-next');
+        if (optionsEl) {
+          optionsEl.innerHTML = `
+            <div class="recessed-panel">
+              <span class="stamp">Llamada finalizada</span>
+              <p style="margin-top: var(--space-sm); font-weight: 600;">
+                Obtuviste ${simCurrentScore} de 100 puntos de sintonía en este caso simulado. Puedes reiniciar la llamada para probar otros caminos o seguir al Módulo 03.
+              </p>
+            </div>
+          `;
+        }
+        if (feedbackEl) {
+          feedbackEl.className = `sim-feedback is-visible is-good`;
+          feedbackEl.textContent = `Módulo 02 completado. Mejor puntaje guardado: ${appState.simBestScore} pts.`;
+        }
+        if (nextBtn) nextBtn.disabled = true;
+        updateProgressUI();
+        persistState();
+      }
+    }
+
+    function restartSimulator() {
+      simTurnIdx = 0;
+      simCurrentScore = 0;
+      simTurnAnswered = false;
+      simHistory = [];
+      simQualData = {
+        titular: `Sin validar`,
+        modalidad: `Sin detectar`,
+        dolor: `Sin indagar`,
+        consumo: `Sin dimensionar`,
+        gasto: `Sin anclar`,
+        familia: `Sin explorar`
+      };
+      renderSimulatorTurn();
+    }
+
+    // =========================================================================
+    // MODULE 3: QUICK QUALIFICATION MATRIX
+    // =========================================================================
+    function renderMatrix(activeTag) {
+      const tbody = document.getElementById('matrix-tbody');
+      if (!tbody) return;
+      let html = '';
+      for (let i = 0; i < MATRIX_ROWS.length; i += 1) {
+        const row = MATRIX_ROWS[i];
+        const isMatch = activeTag !== 'all' && row.tags.indexOf(activeTag) !== -1;
+        html += `
+          <tr class="${isMatch ? 'is-highlighted' : ''}">
+            <td>
+              <span class="matrix-goal-badge">${row.goal}</span>
+            </td>
+            <td>
+              <div>${row.question}</div>
+              <button type="button" class="matrix-question-btn" onclick="practiceMatrixRow(${i})">Ensayar pregunta</button>
+            </td>
+            <td>${row.impact}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = html;
+    }
+
+    function filterMatrix(tag, btnEl) {
+      const chips = document.querySelectorAll('#matrix-filters .filter-chip');
+      for (let i = 0; i < chips.length; i += 1) {
+        chips[i].classList.remove('is-active');
+      }
+      if (btnEl) btnEl.classList.add('is-active');
+      renderMatrix(tag);
+
+      const callout = document.getElementById('matrix-active-callout');
+      if (callout) {
+        const summaries = {
+          all: `Mostrando las 6 preguntas clave de calificación rápida. Filtra por perfil para priorizar en segundos.`,
+          prepago: `Perfil Prepago / Nuevo: valida primero modalidad para encaminar portabilidad prepago, portabilidad plan o línea nueva.`,
+          caro: `Perfil Boleta Alta: pregunta cuánto paga hoy para contrastar contra tarifas fijas permanentes.`,
+          heavy: `Perfil Alto Consumo / RRSS: mide sus gigas actuales y uso diario de Spotify o redes para justificar 300 GB, 500 GB o gigas libres sin descuento de cuota.`,
+          senior: `Perfil Senior 60+: confirma la edad del titular para habilitar de inmediato la tarifa preferencial exclusiva.`,
+          familia: `Perfil Hogar Multilínea: pregunta cuántas líneas pagan en casa para ofrecer planes adicionales con menor costo promedio por línea.`
+        };
+        const p = callout.querySelector('p');
+        if (p) p.textContent = summaries[tag] || summaries.all;
+      }
+    }
+
+    function practiceMatrixRow(rowIdx) {
+      const row = MATRIX_ROWS[rowIdx];
+      if (!row) return;
+      appState.matrixPracticed = true;
+      const fb = document.getElementById('matrix-copy-feedback');
+      if (fb) {
+        fb.textContent = `Ensayando "${row.goal}" → ${row.question}`;
+      }
+      updateProgressUI();
+      persistState();
+    }
+
+    // =========================================================================
+    // MODULE 4: BEST PRACTICES & MINI QUIZ
+    // =========================================================================
+    function toggleBestPractice(num, btn) {
+      appState.bpFlipped[num] = !appState.bpFlipped[num];
+      applyBestPracticeCard(num, btn);
+      persistState();
+    }
+
+    function applyBestPracticeCard(num, btn) {
+      const box = document.getElementById(`bp-demo-${num}`);
+      if (!box) return;
+      const flipped = !!appState.bpFlipped[num];
+      const data = flipped ? BEST_PRACTICES_GOOD[num] : BEST_PRACTICES_BAD[num];
+      if (flipped) {
+        box.classList.add('is-improved');
+      } else {
+        box.classList.remove('is-improved');
+      }
+      box.innerHTML = `
+        <span class="stamp-magenta" style="display: block; margin-bottom: 4px;">${data.label}</span>
+        ${data.text}
+      `;
+      if (btn) {
+        const defaults = {
+          1: `Ver con validación`,
+          2: `Filtrar por necesidad`,
+          3: `Validar al inicio`
+        };
+        btn.textContent = flipped ? `Ver error común` : defaults[num];
+      }
+    }
+
+    function resetBestPracticesUI() {
+      const cards = document.querySelectorAll('.practice-card button');
+      for (let i = 1; i <= 3; i += 1) {
+        applyBestPracticeCard(i, cards[i - 1] || null);
+      }
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      const banner = document.getElementById('quiz-score-banner');
+      if (!container) return;
+
+      let html = '';
+      let correctCount = 0;
+
+      for (let i = 0; i < QUIZ_QUESTIONS.length; i += 1) {
+        const q = QUIZ_QUESTIONS[i];
+        const userAns = appState.quizAnswers[q.id];
+        const answered = typeof userAns === 'number';
+        if (answered && userAns === q.correctIdx) correctCount += 1;
+
+        let choicesHtml = '';
+        for (let c = 0; c < q.options.length; c += 1) {
+          let cls = 'quiz-choice';
+          if (answered) {
+            if (c === q.correctIdx) cls += ' is-right';
+            else if (c === userAns) cls += ' is-wrong';
+          }
+          choicesHtml += `
+            <button type="button" class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz('${q.id}', ${c})">
+              ${q.options[c]}
+            </button>
+          `;
+        }
+
+        html += `
+          <div class="quiz-question">
+            <p style="font-weight: 600;">${q.prompt}</p>
+            <div class="quiz-choices">${choicesHtml}</div>
+            <div class="quiz-explain">${answered ? q.explain : ''}</div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      if (banner) banner.textContent = `${correctCount} de ${QUIZ_QUESTIONS.length} acertadas`;
+    }
+
+    function answerQuiz(qId, choiceIdx) {
+      appState.quizAnswers[qId] = choiceIdx;
+      renderQuiz();
+      updateProgressUI();
+      persistState();
+    }
+
+    // =========================================================================
+    // EXPORT SUMMARY
+    // =========================================================================
+    function exportTrainingSummary() {
+      const done = computeModulesCompleted();
+      const lines = [
+        `RESUMEN DE FORMACIÓN — TÉCNICAS DE SONDEO (KONECTA & MUNDO)`,
+        `=============================================================`,
+        `Módulos completados: ${done}/4`,
+        `Técnicas practicadas (${appState.practicedSondeos.length}/7): ${appState.practicedSondeos.join(', ') || 'Ninguna aún'}`,
+        `Mejor puntaje en Simulador de Llamada: ${appState.simBestScore} pts`,
+        `Matriz de calificación ensayada: ${appState.matrixPracticed ? 'Sí' : 'Pendiente'}`,
+        ``,
+        `RECORDATORIO RÁPIDO DE LOS 7 SONDEOS:`,
+        `1. Abierto (Exploración inicial)`,
+        `2. Cerrado (Calificación y filtro / titularidad)`,
+        `3. Dolor o fricción (Detección de necesidad)`,
+        `4. Consumo (Dimensionamiento: 300 GB, 500 GB o gigas libres + apps)`,
+        `5. Económico (Anclaje de ahorro)`,
+        `6. Expansión familiar (Venta multilínea / Senior 60+)`,
+        `7. Pre-cierre (Validación de intención antes de pedir datos)`
+      ];
+      const textContent = lines.join('\n');
+      const fb = document.getElementById('export-feedback');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: textContent,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'resumen-sondeo-konecta-mundo.txt'
+        });
+        if (fb) fb.textContent = `Resumen descargado`;
+      } else {
+        if (fb) fb.textContent = `Resumen listo (${done}/4 módulos)`;
+      }
+    }
+
+    // =========================================================================
+    // SCROLL REVEAL & BOOTSTRAP
+    // =========================================================================
+    function initScrollReveals() {
+      const reveals = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        for (let i = 0; i < reveals.length; i += 1) {
+          reveals[i].classList.add('is-in');
+        }
+        return;
+      }
+      const observer = new IntersectionObserver(function(entries) {
+        for (let i = 0; i < entries.length; i += 1) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add('is-in');
+            observer.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.1 });
+
+      for (let i = 0; i < reveals.length; i += 1) {
+        observer.observe(reveals[i]);
+      }
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (typeof saved.selectedSondeoIdx === 'number') appState.selectedSondeoIdx = saved.selectedSondeoIdx;
+            if (Array.isArray(saved.practicedSondeos)) appState.practicedSondeos = saved.practicedSondeos;
+            if (typeof saved.simBestScore === 'number') appState.simBestScore = saved.simBestScore;
+            if (typeof saved.simCompleted === 'boolean') appState.simCompleted = saved.simCompleted;
+            if (typeof saved.matrixPracticed === 'boolean') appState.matrixPracticed = saved.matrixPracticed;
+            if (saved.quizAnswers && typeof saved.quizAnswers === 'object') appState.quizAnswers = saved.quizAnswers;
+            if (saved.bpFlipped && typeof saved.bpFlipped === 'object') appState.bpFlipped = saved.bpFlipped;
+          }
+        }
+      } catch (err) {
+        // Proceed with fresh state
+      }
+
+      renderSondeoList();
+      selectSondeo(appState.selectedSondeoIdx, false);
+      renderSimulatorTurn();
+      renderMatrix('all');
+      resetBestPracticesUI();
+      renderQuiz();
+      updateProgressUI();
+      initScrollReveals();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
